@@ -72,24 +72,24 @@ public class RegisterPnl extends JPanel {
 
 		panel.add(lblAddress);
 		panel.add(tfAddress);
-//		panel.add(invis2);
-////		pnlLeft.add(invis6);
-//
-//		panel.add(lblEmail);
-//		panel.add(tfEmail);
-//		panel.add(invis3);
-////		pnlLeft.add(invis7);
-//
-//		panel.add(lblPhone);
-//		panel.add(tfPhone);
-//		panel.add(invis4);
-//		// add(invis8);
-//
-//		panel.add(lblID);
-//		panel.add(tfID);
-//
-//		panel.add(bnCancel);
-//		add(lblStatus);
+		panel.add(invis2);
+//		pnlLeft.add(invis6);
+
+		panel.add(lblEmail);
+		panel.add(tfEmail);
+		panel.add(invis3);
+//		pnlLeft.add(invis7);
+
+		panel.add(lblPhone);
+		panel.add(tfPhone);
+		panel.add(invis4);
+		// add(invis8);
+
+		panel.add(lblID);
+		panel.add(tfID);
+
+		panel.add(bnCancel);
+		add(lblStatus);
 	}
 
 }
