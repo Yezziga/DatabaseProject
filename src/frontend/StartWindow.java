@@ -18,7 +18,8 @@ public class StartWindow extends JFrame {
 		this.setLocation(500,200);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setSize(500, 700);
-		this.add(new RegisterPnl());
+//		this.add(new RegisterPnl());
+		this.add(new BookingPnl());
 //		this.pack();
 		this.setVisible(true);
 		//
