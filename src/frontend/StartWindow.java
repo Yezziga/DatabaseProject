@@ -21,6 +21,7 @@ public class StartWindow extends JFrame {
 		this.add(new RegisterPnl());
 //		this.pack();
 		this.setVisible(true);
+		//
 	}
 
 	public static void main(String[] args) {
