@@ -13,7 +13,6 @@ public class RegisterPnl extends JPanel {
 	private JLabel lblAddress = new JLabel("Address");
 	private JLabel lblEmail = new JLabel("Email");
 	private JLabel lblPhone = new JLabel("Phone");
-//	private JLabel lblID = new JLabel("Your traveler-ID");
 	private JLabel lblStatus = new JLabel("status comes here");
 
 	private JLabel invis = new JLabel();
@@ -23,6 +22,7 @@ public class RegisterPnl extends JPanel {
 	private JLabel invis4 = new JLabel();
 	private JLabel invis5 = new JLabel();
 	private JLabel invis6 = new JLabel();
+
 //	private JLabel invis7 = new JLabel();
 //	private JLabel invis8 = new JLabel();
 
@@ -40,11 +40,14 @@ public class RegisterPnl extends JPanel {
 	public RegisterPnl() {
 		setLayout(new BorderLayout());
 
+
 //		setBorder(BorderFactory.createLineBorder(Color.BLACK));
+
 		tfName.setPreferredSize(new Dimension(160, 20));
 		tfAddress.setPreferredSize(new Dimension(160, 20));
 		tfEmail.setPreferredSize(new Dimension(160, 20));
 		tfPhone.setPreferredSize(new Dimension(160, 20));
+
 //		tfID.setPreferredSize(new Dimension(160, 20));
 
 		invis.setPreferredSize(new Dimension(610, 90));
@@ -91,6 +94,7 @@ public class RegisterPnl extends JPanel {
 		panel.add(bnCancel);
 		panel.add(invis6);
 		panel.add(lblStatus);
+
 	}
 
 }
