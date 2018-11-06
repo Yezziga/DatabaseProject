@@ -6,8 +6,18 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import javax.swing.*;
-import backend.Queries;
+import javax.swing.event.TableModelEvent;
+import javax.swing.table.AbstractTableModel;
+import javax.swing.table.TableModel;
 
+import backend.Queries;
+import frontend.SimpleTableWindow.MyTableModel;
+
+/**
+ * not used
+ * @author Jessica
+ *
+ */
 public class Terminal extends JPanel {
 	private JLabel lblTitle;
 	private JScrollPane pane;
@@ -16,7 +26,7 @@ public class Terminal extends JPanel {
 	private JList<Object> list;
 	private JPanel pnlSouth;
 	private Controller c;
-
+	
 	public Terminal(Controller c) {
 		this.c = c;
 
@@ -58,6 +68,7 @@ public class Terminal extends JPanel {
 		System.out.print(s);
 		Listener listener = new Listener();
 		listener.addListeners();
+	
 	}
 
 	public String getInput() {

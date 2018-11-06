@@ -29,6 +29,7 @@ public class MyBookingsPnl extends JPanel{
 	public MyBookingsPnl(Controller c) {
 		this.c = c;
 		setLayout(new BorderLayout());
+//		setOpaque(true);
 		lblMyBookings.setHorizontalAlignment(JLabel.CENTER);
 		lblMyBookings.setPreferredSize(new Dimension(80, 50));
 
@@ -66,7 +67,7 @@ public class MyBookingsPnl extends JPanel{
 			} 
 
 			if (e.getSource() == bnGoBack) {
-				c.openMainMenu(2);
+				c.changePanel(3);
 			}
 
 		}

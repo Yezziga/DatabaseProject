@@ -4,6 +4,7 @@ import backend.Queries;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -27,9 +28,14 @@ public class SimpleTableWindow extends JPanel implements TableModelListener, Act
 
 	private boolean DEBUG = false;
 	private JTable table;
+	private JLabel lblTitle;
+	private JTextField tfInput;
+	private JButton bnBook, bnMyBookings, bnRegister;
+	private Controller c;
 
-	public SimpleTableWindow() {
-		super(new GridLayout(2, 0));
+	public SimpleTableWindow(Controller c) {
+		super(new BorderLayout());
+		this.c = c;
 
 		table = new JTable(new MyTableModel());
 		table.setPreferredScrollableViewportSize(new Dimension(500, 70));
@@ -40,22 +46,28 @@ public class SimpleTableWindow extends JPanel implements TableModelListener, Act
 		JScrollPane scrollPane = new JScrollPane(table);
 
 		// Add the scroll pane to this panel.
-		add(scrollPane);
-		JPanel newpane = new JPanel();
-		newpane.setBackground(Color.magenta);
-		newpane.setLayout(new FlowLayout());
+		JPanel pnlSouth = new JPanel();
+		pnlSouth.setBackground(Color.magenta);
+
+		lblTitle = new JLabel("Title goes here");
+		lblTitle.setHorizontalAlignment(JLabel.CENTER);
+		tfInput = new JTextField("Input goes here");
+		tfInput.setPreferredSize(new Dimension(250, 25));
+		bnBook = new JButton("book");
+		bnMyBookings = new JButton("My bookings");
+		bnRegister = new JButton("Register");
+		pnlSouth = new JPanel();
+		pnlSouth.add(tfInput);
+		pnlSouth.add(bnBook);
+		pnlSouth.add(bnMyBookings);
+		pnlSouth.add(bnRegister);
+
+		add(lblTitle, BorderLayout.NORTH);
+		add(scrollPane, BorderLayout.CENTER);
+		add(pnlSouth, BorderLayout.SOUTH);
 		
-		JTextField tfInput = new JTextField("Input goes here");
-		
-		tfInput.setPreferredSize(new Dimension( 400, 250));
-		newpane.add(tfInput, BorderLayout.SOUTH);
-		
-		JButton btn = new JButton("OK");
-		btn.setPreferredSize(new Dimension( 75, 75));
-		
-		newpane.add(btn);
-		
-		add(newpane);
+		bnRegister.addActionListener(this);
+		bnMyBookings.addActionListener(this);
 	}
 
 	public Object[][] getData() {
@@ -160,34 +172,6 @@ public class SimpleTableWindow extends JPanel implements TableModelListener, Act
 		}
 	}
 
-	/**
-	 * Create the GUI and show it. For thread safety, this method should be invoked
-	 * from the event-dispatching thread.
-	 */
-	private static void createAndShowGUI() {
-		// Create and set up the window.
-		JFrame frame = new JFrame("TableDemo");
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-		// Create and set up the content pane.
-		SimpleTableWindow newContentPane = new SimpleTableWindow();
-		newContentPane.setOpaque(true); // content panes must be opaque
-		frame.setContentPane(newContentPane);
-
-		// Display the window.
-		frame.pack();
-		frame.setVisible(true);
-	}
-
-	public static void main(String[] args) {
-		// Schedule a job for the event-dispatching thread:
-		// creating and showing this application's GUI.
-		javax.swing.SwingUtilities.invokeLater(new Runnable() {
-			public void run() {
-				createAndShowGUI();
-			}
-		});
-	}
 
 	@Override
 	public void tableChanged(TableModelEvent e) {
@@ -199,9 +183,23 @@ public class SimpleTableWindow extends JPanel implements TableModelListener, Act
 
 	}
 
+	public String getInput() {
+		return tfInput.getText();
+	}
+
+	
+
 	@Override
 	public void actionPerformed(ActionEvent event) {
 		String command = event.getActionCommand();
+		
+		if (event.getSource() == bnRegister) {
+			c.changePanel(1);
+		}
+		if (event.getSource() == bnMyBookings) {
+			c.changePanel(2);
+		}
+
 		// Cell selection is disabled in Multiple Interval Selection
 		// mode. The enabled state of cellCheck is a convenient flag
 		// for this status.

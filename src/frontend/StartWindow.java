@@ -18,26 +18,25 @@ import backend.Queries;
  */
 public class StartWindow extends JFrame {
 
-	public StartWindow(JPanel pnl) {
-		this.setLocation(500,200); 
+	public StartWindow(Controller c) {
+
+		SimpleTableWindow newContentPane = new SimpleTableWindow(c);
+		newContentPane.setOpaque(true); // content panes must be opaque
+		setContentPane(newContentPane);
+		this.setLocation(500, 200);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setPreferredSize(new Dimension(900, 500));
-		this.add(pnl);
 		this.pack();
 		this.setVisible(true);
-		//
-	}
 	
-	public void swapPanel(JPanel old, JPanel toShow) {
-		remove(old);
-		add(toShow);
+	}
+
+	public void swapPanel(JPanel toShow) {
+		setContentPane(toShow);
 		pack();
 		revalidate();
 		repaint();
 	}
-	
-	public void end() {
-		dispose();
-	}
-	
+
+
 }

@@ -38,7 +38,8 @@ public class RegisterPnl extends JPanel {
 	public RegisterPnl(Controller c) {
 		this.c = c;
 		setLayout(new BorderLayout());
-
+//		setOpaque(true);
+		
 		tfName.setPreferredSize(new Dimension(160, 20));
 		tfAddress.setPreferredSize(new Dimension(160, 20));
 		tfEmail.setPreferredSize(new Dimension(160, 20));
@@ -114,12 +115,12 @@ public class RegisterPnl extends JPanel {
 		public void actionPerformed(ActionEvent e) {
 			if (e.getSource() == bnRegister) {
 
-				c.registerTraveler(getName(), getAddress(), getEmail(), getPhone()); // add new traveler to database
+//				c.registerTraveler(getName(), getAddress(), getEmail(), getPhone()); // add new traveler to database
 				JOptionPane.showMessageDialog(null, "You have been registered. Your traveler-ID is: ");
 			}
 
 			if (e.getSource() == bnCancel) {
-				c.openMainMenu(1);
+				c.changePanel(3);
 			}
 
 		}
