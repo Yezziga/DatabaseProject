@@ -1,5 +1,6 @@
 package frontend;
 
+import backend.Queries;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -13,6 +14,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 
 public class SimpleTableWindow extends JPanel implements TableModelListener, ActionListener {
@@ -34,16 +36,38 @@ public class SimpleTableWindow extends JPanel implements TableModelListener, Act
 	        add(scrollPane);
 	    }
 
+	public Object[][] getData()	{
+		
+		Object[][] myData = new Queries().getQueries.getDrivers();
+		
+		
+		return myData;
+	}
+	
+	public String[] getColumns()	{
+		
+		String[] myData = { "Person_nr", "name", "address", "phone_nr" };
+		return myData;
+	}
+	
+	
 	class MyTableModel extends AbstractTableModel {
-		private String[] columnNames = { "First Name", "Last Name", "Sport", "# of Years", "Vegetarian" };
-		private Object[][] data = {
-				{ "Kathy", "Smith", "Snowboarding", new Integer(5), new Boolean(false) },
-				{ "John", "Doe", "Rowing", new Integer(3), new Boolean(true) },
-				{ "Sue", "Black", "Knitting", new Integer(2), new Boolean(false) },
-				{ "Jane", "White", "Speed reading", new Integer(20), new Boolean(true) },
-				{ "Joe", "Brown", "Pool", new Integer(10), new Boolean(false) }
-				};
-
+//		private String[] columnNames = { "First Name", "Last Name", "Sport", "# of Years", "Vegetarian" };
+//		private Object[][] data = {
+//				{ "Kathy", "Smith", "Snowboarding", new Integer(5), new Boolean(false) },
+//				{ "John", "Doe", "Rowing", new Integer(3), new Boolean(true) },
+//				{ "Sue", "Black", "Knitting", new Integer(2), new Boolean(false) },
+//				{ "Jane", "White", "Speed reading", new Integer(20), new Boolean(true) },
+//				{ "Joe", "Brown", "Pool", new Integer(10), new Boolean(false) }
+//				};
+		private String[] columnNames; 
+		private Object[][] data;
+		
+		public MyTableModel() {
+			this.columnNames = getColumns();
+			this.data = getData();
+		}
+		
 		public int getColumnCount() {
 			return columnNames.length;
 		}
