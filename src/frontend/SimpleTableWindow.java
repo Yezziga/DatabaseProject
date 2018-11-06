@@ -1,12 +1,19 @@
 package frontend;
 
 import backend.Queries;
+
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.table.AbstractTableModel;
+
+import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import javax.swing.event.*;
 import javax.swing.table.TableModel;
@@ -34,6 +41,21 @@ public class SimpleTableWindow extends JPanel implements TableModelListener, Act
 
 		// Add the scroll pane to this panel.
 		add(scrollPane);
+		JPanel newpane = new JPanel();
+		newpane.setBackground(Color.magenta);
+		newpane.setLayout(new FlowLayout());
+		
+		JTextField tfInput = new JTextField("Input goes here");
+		
+		tfInput.setPreferredSize(new Dimension( 400, 250));
+		newpane.add(tfInput, BorderLayout.SOUTH);
+		
+		JButton btn = new JButton("OK");
+		btn.setPreferredSize(new Dimension( 75, 75));
+		
+		newpane.add(btn);
+		
+		add(newpane);
 	}
 
 	public Object[][] getData() {
