@@ -3,8 +3,11 @@ package frontend;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.*;
+
 
 // optional
 public class MyBookingsPnl extends JPanel{
@@ -19,10 +22,12 @@ public class MyBookingsPnl extends JPanel{
 	private JTextField tfTravelerID = new JTextField();
 	private JButton bnOK = new JButton("OK"); 
 	private JButton bnGoBack = new JButton("Go back"); 
+	private Controller c;
 
 	
 	
-	public MyBookingsPnl() {
+	public MyBookingsPnl(Controller c) {
+		this.c = c;
 		setLayout(new BorderLayout());
 		lblMyBookings.setHorizontalAlignment(JLabel.CENTER);
 		lblMyBookings.setPreferredSize(new Dimension(80, 50));
@@ -40,5 +45,31 @@ public class MyBookingsPnl extends JPanel{
 		add(lblMyBookings, BorderLayout.NORTH);
 		add(sp, BorderLayout.CENTER);
 		add(pnlSouth, BorderLayout.SOUTH);
+		
+
+		Listener listener = new Listener();
+		listener.addListeners();
+	}
+	
+	private class Listener implements ActionListener {
+
+		public void addListeners() {
+			bnOK.addActionListener(this);
+			bnGoBack.addActionListener(this);
+		}
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			if (e.getSource() == bnOK) {
+				// query traveler-ID's bookings
+
+			} 
+
+			if (e.getSource() == bnGoBack) {
+				c.openMainMenu(2);
+			}
+
+		}
+
 	}
 }
