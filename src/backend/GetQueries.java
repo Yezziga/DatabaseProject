@@ -12,24 +12,34 @@ public class GetQueries {
 	public GetQueries() {
 	}
 	
-	public ArrayList<String[]> getDrivers() {
+	public Object[][] getDrivers() {
 		Connection myConn = JDBC.getConnection();
 		Statement stmt = null;
 		
-		ArrayList<String[]> resultArray = new ArrayList<String[]>();
+		Object[][] resultArray = null;
+		
 		try {
 			stmt = myConn.createStatement();
 			
 			String sql; 
-			sql = String.format("SELECT * FROM DRIVER").toString();
+			sql = String.format("SELECT count(*) AS totalRows FROM DRIVER;").toString();
 			System.out.println(sql);
 			
 			ResultSet rs = stmt.executeQuery(sql);
-
+			rs.next();			
+			resultArray =  new Object[rs.getInt("totalRows")][10];
+			
+			sql = String.format("SELECT * FROM DRIVER").toString();
+			System.out.println(sql);
+			
+			rs = stmt.executeQuery(sql);
+			
+			int columnIndex = 0;
 			while (rs.next()) {
 				
 				String[] rr = {rs.getString("person_nr"), rs.getString("name"), rs.getString("address"), rs.getString("phone_nr")};
-				resultArray.add(rr);				
+				resultArray[columnIndex] = rr;
+				columnIndex++;
 			}
 			
 			rs.close();
