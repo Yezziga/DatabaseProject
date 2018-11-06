@@ -85,10 +85,10 @@ public class Terminal extends JPanel {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			if (e.getSource() == bnRegister) {
-				c.openRegisterUI();
+//				c.openRegisterUI();
 			}
 			if(e.getSource() == bnMyBookings) {
-				c.openMyBookingsUI();
+//				c.openMyBookingsUI();
 			}
 
 		}

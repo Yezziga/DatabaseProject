@@ -116,7 +116,7 @@ public class RegisterPnl extends JPanel {
 			if (e.getSource() == bnRegister) {
 
 //				c.registerTraveler(getName(), getAddress(), getEmail(), getPhone()); // add new traveler to database
-				JOptionPane.showMessageDialog(null, "You have been registered. Your traveler-ID is: ");
+				JOptionPane.showMessageDialog(null, "You have been registered. Your traveler-ID is: "); // give ID
 			}
 
 			if (e.getSource() == bnCancel) {

@@ -1,28 +1,13 @@
 package frontend;
 
 import backend.Queries;
-
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.JTextField;
+import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
-
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.GridLayout;
+import java.awt.*;
 import javax.swing.event.*;
 import javax.swing.table.TableModel;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 
 public class SimpleTableWindow extends JPanel implements TableModelListener, ActionListener {
 
@@ -49,11 +34,11 @@ public class SimpleTableWindow extends JPanel implements TableModelListener, Act
 		JPanel pnlSouth = new JPanel();
 		pnlSouth.setBackground(Color.magenta);
 
-		lblTitle = new JLabel("Title goes here");
+		lblTitle = new JLabel("BOOKING");
 		lblTitle.setHorizontalAlignment(JLabel.CENTER);
 		tfInput = new JTextField("Input goes here");
 		tfInput.setPreferredSize(new Dimension(250, 25));
-		bnBook = new JButton("book");
+		bnBook = new JButton("Book");
 		bnMyBookings = new JButton("My bookings");
 		bnRegister = new JButton("Register");
 		pnlSouth = new JPanel();
@@ -65,9 +50,11 @@ public class SimpleTableWindow extends JPanel implements TableModelListener, Act
 		add(lblTitle, BorderLayout.NORTH);
 		add(scrollPane, BorderLayout.CENTER);
 		add(pnlSouth, BorderLayout.SOUTH);
-		
+
 		bnRegister.addActionListener(this);
 		bnMyBookings.addActionListener(this);
+		bnBook.addActionListener(this);
+
 	}
 
 	public Object[][] getData() {
@@ -172,7 +159,6 @@ public class SimpleTableWindow extends JPanel implements TableModelListener, Act
 		}
 	}
 
-
 	@Override
 	public void tableChanged(TableModelEvent e) {
 		int row = e.getFirstRow();
@@ -187,17 +173,19 @@ public class SimpleTableWindow extends JPanel implements TableModelListener, Act
 		return tfInput.getText();
 	}
 
-	
-
 	@Override
 	public void actionPerformed(ActionEvent event) {
 		String command = event.getActionCommand();
-		
+
 		if (event.getSource() == bnRegister) {
 			c.changePanel(1);
 		}
 		if (event.getSource() == bnMyBookings) {
 			c.changePanel(2);
+		}
+		if(event.getSource() == bnBook) {
+			int seats= Integer.parseInt(JOptionPane.showInputDialog("How many seats would you like to book?"));
+			c.checkSeats(seats);
 		}
 
 		// Cell selection is disabled in Multiple Interval Selection

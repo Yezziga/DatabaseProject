@@ -11,7 +11,7 @@ import javax.swing.*;
 
 // optional
 public class MyBookingsPnl extends JPanel{
-	private JLabel lblMyBookings = new JLabel("My bookings"); // NORTH
+	private JLabel lblMyBookings = new JLabel("MY BOOKINGS"); // NORTH
 
 	private JPanel pnlCenter = new JPanel();
 	private JScrollPane sp = new JScrollPane();
