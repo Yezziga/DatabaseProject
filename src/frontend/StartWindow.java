@@ -15,12 +15,13 @@ import javax.swing.JFrame;
 public class StartWindow extends JFrame {
 
 	public StartWindow() {
-		this.setLocation(500,200);
+		this.setLocation(500,200); 
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setSize(500, 700);
+		this.setPreferredSize(new Dimension(900, 500));
 //		this.add(new RegisterPnl());
-		this.add(new BookingPnl());
-//		this.pack();
+//		this.add(new BookingPnl());
+		this.add(new Terminal());
+		this.pack();
 		this.setVisible(true);
 		//
 	}
