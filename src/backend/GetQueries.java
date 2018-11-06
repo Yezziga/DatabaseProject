@@ -12,11 +12,55 @@ public class GetQueries {
 	public GetQueries() {
 	}
 	
-	public ArrayList<String> getDriver(String pnr) {
+	public ArrayList<String[]> getDrivers() {
 		Connection myConn = JDBC.getConnection();
 		Statement stmt = null;
 		
-		ArrayList<String> resultArray = null;
+		ArrayList<String[]> resultArray = new ArrayList<String[]>();
+		try {
+			stmt = myConn.createStatement();
+			
+			String sql; 
+			sql = String.format("SELECT * FROM DRIVER").toString();
+			System.out.println(sql);
+			
+			ResultSet rs = stmt.executeQuery(sql);
+
+			while (rs.next()) {
+				
+				String[] rr = {rs.getString("person_nr"), rs.getString("name"), rs.getString("address"), rs.getString("phone_nr")};
+				resultArray.add(rr);				
+			}
+			
+			rs.close();
+			stmt.close();
+			myConn.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			try {
+				myConn.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			try {
+				stmt.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		return resultArray;
+	}
+	
+	public ArrayList<String[]> getDriver(String pnr) {
+		Connection myConn = JDBC.getConnection();
+		Statement stmt = null;
+		
+		ArrayList<String[]> resultArray = new ArrayList<String[]>();
 		try {
 			stmt = myConn.createStatement();
 			
@@ -29,11 +73,8 @@ public class GetQueries {
 			
 			while (rs.next()) {
 				
-				resultArray = new ArrayList<String>();				
-				resultArray.add(rs.getString("person_nr"));
-				resultArray.add(rs.getString("name"));
-				resultArray.add(rs.getString("address"));
-				resultArray.add(rs.getString("phone_nr"));				
+				String[] rr = {rs.getString("person_nr"), rs.getString("name"), rs.getString("address"), rs.getString("phone_nr")};
+				resultArray.add(rr);			
 			}
 			
 			rs.close();
