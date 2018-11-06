@@ -16,10 +16,13 @@ public final class JDBC {
 	public static Connection getConnection() {
 
 		try {
-			if (conn.isClosed() || conn == null) {
+			if (conn == null || conn.isClosed()) {
 
 				conn = DriverManager.getConnection(url, user, password);
 				System.out.println("Connected to the PostgreSQL server successfully.");
+			}
+			else {
+				System.out.println("Already connected.");
 			}
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
