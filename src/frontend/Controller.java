@@ -1,5 +1,6 @@
 package frontend;
 
+import backend.Queries;
 import java.awt.Dimension;
 
 import javax.swing.*;
@@ -36,9 +37,22 @@ public class Controller {
 	}
 
 	public void registerTraveler(String name, String address, String email, String phone) {
-
+		int trav_id = new Queries().insertQueries.registerTraveler(name, email, address, phone);
+		if(trav_id == -1)
+		{
+			//throw new Exception();
+		}
 	}
 
+	public void getMyBookings(int trav_id) {
+		Object[][] bookings = new Queries().getQueries.getMyBooking(15);
+		String[] myData = { "Person_nr", "name", "address", "phone_nr" };
+		if(trav_id == -1)
+		{
+			//throw new Exception();
+		}
+	}
+	
 	public void checkSeats(int seats) {
 		// call query to calculate price
 		

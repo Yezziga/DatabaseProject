@@ -110,4 +110,59 @@ public class GetQueries {
 		
 		return resultArray;
 	}
+
+	public Object[][] getMyBooking(int traveler_Id) {
+		Connection myConn = JDBC.getConnection();
+		Statement stmt = null;
+		
+		Object[][] resultArray = null;
+		
+		try {
+			stmt = myConn.createStatement();
+			
+			String sql; 
+			sql = String.format("SELECT count(*) AS totalRows FROM booking WHERE traveler_id;").toString();
+			System.out.println(sql);
+			
+			ResultSet rs = stmt.executeQuery(sql);
+			rs.next();			
+			resultArray =  new Object[rs.getInt("totalRows")][10];
+			
+			sql = String.format("SELECT * FROM booking WHERE traveler_id = %s", traveler_Id).toString();
+			System.out.println(sql);
+			
+			rs = stmt.executeQuery(sql);
+			
+			int columnIndex = 0;
+			while (rs.next()) {
+				
+				String[] rr = {rs.getString("booking_id"), rs.getString("trip_id"), rs.getString("traveler_id"), rs.getString("total_price"), rs.getString("reserved_seats")};
+				resultArray[columnIndex] = rr;
+				columnIndex++;
+			}
+			
+			rs.close();
+			stmt.close();
+			myConn.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			try {
+				myConn.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			try {
+				stmt.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		return resultArray;
+	}
+	
 }
