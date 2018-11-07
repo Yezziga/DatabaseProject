@@ -27,16 +27,24 @@ public class MyBookingsPnl extends JPanel{
 	
 	
 	public MyBookingsPnl(Controller c) {
-		this.c = c;
+		this.c = c;		
 		setLayout(new BorderLayout());
 //		setOpaque(true);
+		
+		JTable table = new JTable(new MyTable());
+		table.setPreferredScrollableViewportSize(new Dimension(500, 70));
+		table.setFillsViewportHeight(true);
+
+		// Create the scroll pane and add the table to it.
+		JScrollPane scrollPane = new JScrollPane(table);		
+		
 		lblMyBookings.setHorizontalAlignment(JLabel.CENTER);
 		lblMyBookings.setPreferredSize(new Dimension(80, 50));
 
 		tfTravelerID.setPreferredSize(new Dimension(80, 20));
 		sp.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 //		sp.setSize(200, 700); // not working
-		sp.setViewportView(routesList);
+		//sp.setViewportView(routesList);
 		pnlCenter.add(sp);
 		
 		pnlSouth.add(lblTravelerID);
@@ -44,12 +52,17 @@ public class MyBookingsPnl extends JPanel{
 		pnlSouth.add(bnOK);
 		pnlSouth.add(bnGoBack);
 		add(lblMyBookings, BorderLayout.NORTH);
-		add(sp, BorderLayout.CENTER);
+		add(scrollPane, BorderLayout.CENTER);
 		add(pnlSouth, BorderLayout.SOUTH);
 		
 
 		Listener listener = new Listener();
 		listener.addListeners();
+	}
+	
+	public void addTable(MyTable table)
+	{
+		
 	}
 	
 	private class Listener implements ActionListener {

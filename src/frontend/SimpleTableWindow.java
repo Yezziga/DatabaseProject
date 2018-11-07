@@ -11,7 +11,6 @@ import java.awt.event.ActionListener;
 
 public class SimpleTableWindow extends JPanel implements TableModelListener, ActionListener {
 
-	private boolean DEBUG = false;
 	private JTable table;
 	private JLabel lblTitle;
 	private JTextField tfInput;
@@ -22,7 +21,7 @@ public class SimpleTableWindow extends JPanel implements TableModelListener, Act
 		super(new BorderLayout());
 		this.c = c;
 
-		table = new JTable(new MyTableModel());
+		table = new JTable(new MyTable());
 		table.setPreferredScrollableViewportSize(new Dimension(500, 70));
 		table.setFillsViewportHeight(true);
 
@@ -57,105 +56,6 @@ public class SimpleTableWindow extends JPanel implements TableModelListener, Act
 
 	}
 
-	public Object[][] getData() {
-
-		Object[][] myData = new Queries().getQueries.getDrivers();
-
-		return myData;
-	}
-
-	public String[] getColumns() {
-
-		String[] myData = { "Person_nr", "name", "address", "phone_nr" };
-		return myData;
-	}
-
-	class MyTableModel extends AbstractTableModel {
-
-		private String[] columnNames;
-		private Object[][] data;
-
-		public MyTableModel() {
-			this.columnNames = getColumns();
-			this.data = getData();
-		}
-		
-		public MyTableModel(String[] columnNames, Object[][] data) {
-			this.columnNames = columnNames;
-			this.data = data;
-		}
-
-		public int getColumnCount() {
-			return columnNames.length;
-		}
-
-		public int getRowCount() {
-			return data.length;
-		}
-
-		public String getColumnName(int col) {
-			return columnNames[col];
-		}
-
-		public Object getValueAt(int row, int col) {
-			return data[row][col];
-		}
-
-		/*
-		 * JTable uses this method to determine the default renderer/ editor for each
-		 * cell. If we didn't implement this method, then the last column would contain
-		 * text ("true"/"false"), rather than a check box.
-		 */
-		public Class getColumnClass(int c) {
-			return getValueAt(0, c).getClass();
-		}
-
-		/*
-		 * Don't need to implement this method unless your table's editable.
-		 */
-		public boolean isCellEditable(int row, int col) {
-			// Note that the data/cell address is constant,
-			// no matter where the cell appears onscreen.
-			if (col < 2) {
-				return false;
-			} else {
-				return true;
-			}
-		}
-
-		/*
-		 * Don't need to implement this method unless your table's data can change.
-		 */
-		public void setValueAt(Object value, int row, int col) {
-			if (DEBUG) {
-				System.out.println("Setting value at " + row + "," + col + " to " + value + " (an instance of "
-						+ value.getClass() + ")");
-			}
-
-			data[row][col] = value;
-			fireTableCellUpdated(row, col);
-
-			if (DEBUG) {
-				System.out.println("New value of data:");
-				printDebugData();
-			}
-		}
-
-		private void printDebugData() {
-			int numRows = getRowCount();
-			int numCols = getColumnCount();
-
-			for (int i = 0; i < numRows; i++) {
-				System.out.print("    row " + i + ":");
-				for (int j = 0; j < numCols; j++) {
-					System.out.print("  " + data[i][j]);
-				}
-				System.out.println();
-			}
-			System.out.println("--------------------------");
-		}
-	}
-
 	@Override
 	public void tableChanged(TableModelEvent e) {
 		int row = e.getFirstRow();
@@ -163,7 +63,6 @@ public class SimpleTableWindow extends JPanel implements TableModelListener, Act
 		TableModel model = (TableModel) e.getSource();
 		String columnName = model.getColumnName(column);
 		Object data = model.getValueAt(row, column);
-
 	}
 
 	public String getInput() {
@@ -180,8 +79,8 @@ public class SimpleTableWindow extends JPanel implements TableModelListener, Act
 		if (event.getSource() == bnMyBookings) {
 			c.changePanel(2);
 		}
-		if(event.getSource() == bnBook) {
-			int seats= Integer.parseInt(JOptionPane.showInputDialog("How many seats would you like to book?"));
+		if (event.getSource() == bnBook) {
+			int seats = Integer.parseInt(JOptionPane.showInputDialog("How many seats would you like to book?"));
 			c.checkSeats(seats);
 		}
 
@@ -234,4 +133,5 @@ public class SimpleTableWindow extends JPanel implements TableModelListener, Act
 		// }
 
 	}
+
 }

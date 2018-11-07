@@ -1,6 +1,8 @@
 package frontend;
 
 import backend.Queries;
+import frontend.SimpleTableWindow;
+
 import java.awt.Dimension;
 
 import javax.swing.*;
@@ -23,7 +25,7 @@ public class Controller {
 			pnl = registerPnl;
 		}
 		if (i == 2) {
-			pnl = myBookings;
+			pnl = myBookings;			
 		}
 		if (i == 3) {
 			pnl = table;
@@ -44,10 +46,11 @@ public class Controller {
 		}
 	}
 
-	public void getMyBookings(int trav_id) {
+	public MyTable getMyBookings(int trav_id) {
 		Object[][] bookings = new Queries().getQueries.getMyBooking(trav_id);
 		String[] columns = { "Booking nr", "Route", "Departure", "Arrival", "Total price", "Reserved seats" };
 		
+		return new MyTable(columns, bookings);		
 	}
 	
 	public void checkSeats(int seats) {
