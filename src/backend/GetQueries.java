@@ -121,14 +121,14 @@ public class GetQueries {
 			stmt = myConn.createStatement();
 			
 			String sql; 
-			sql = String.format("SELECT count(*) AS totalRows FROM booking WHERE traveler_id;").toString();
+			sql = "SELECT count(*) AS totalRows FROM get_bookings(" + traveler_Id + ");";
 			System.out.println(sql);
 			
 			ResultSet rs = stmt.executeQuery(sql);
 			rs.next();			
 			resultArray =  new Object[rs.getInt("totalRows")][10];
 			
-			sql = String.format("SELECT * FROM booking WHERE traveler_id = %s", traveler_Id).toString();
+			sql = "SELECT * FROM get_bookings( " + traveler_Id + ")";
 			System.out.println(sql);
 			
 			rs = stmt.executeQuery(sql);

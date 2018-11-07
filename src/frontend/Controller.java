@@ -45,12 +45,9 @@ public class Controller {
 	}
 
 	public void getMyBookings(int trav_id) {
-		Object[][] bookings = new Queries().getQueries.getMyBooking(15);
-		String[] myData = { "Person_nr", "name", "address", "phone_nr" };
-		if(trav_id == -1)
-		{
-			//throw new Exception();
-		}
+		Object[][] bookings = new Queries().getQueries.getMyBooking(trav_id);
+		String[] columns = { "Booking nr", "Route", "Departure", "Arrival", "Total price", "Reserved seats" };
+		
 	}
 	
 	public void checkSeats(int seats) {
