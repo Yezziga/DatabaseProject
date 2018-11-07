@@ -13,7 +13,9 @@ public class InsertQueries {
 	public InsertQueries() {
 	}
 	
-	public void registerTraveler(String name, String email, String address, String phone_nr) {
+	public int registerTraveler(String name, String email, String address, String phone_nr) {
+
+		int traveler_id = -1;
 		String call = "{call insert_traveler(?, ?, ?, ?)}";
 
 		Connection myConn = JDBC.getConnection();
@@ -25,8 +27,12 @@ public class InsertQueries {
 			stmt.setString(3, address);
 			stmt.setString(4, phone_nr);
 
-			stmt.execute();
-
+			ResultSet rs =stmt.executeQuery();
+			rs.next();
+			
+			traveler_id = rs.getInt(1);
+			System.out.println(traveler_id);
+			
 			stmt.close();
 			myConn.close();
 
@@ -47,6 +53,7 @@ public class InsertQueries {
 				e.printStackTrace();
 			}
 		}
+		return traveler_id;
 	}
 
 	public void registerDriver(String pnr, String name, String address, String phone_nr) {
