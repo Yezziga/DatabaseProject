@@ -1,15 +1,72 @@
 package backend;
 
-import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
 
 public class GetQueries {
 
 	public GetQueries() {
+	}
+	public Object[][] getAllTrips() {
+
+		Connection myConn = JDBC.getConnection();
+		Statement stmt = null;
+
+		Object[][] resultArray = null;
+
+		try {
+
+			stmt = myConn.createStatement();
+
+			String sql;
+			sql = "SELECT count(*) AS totalRows from trip;";
+
+			ResultSet rs = stmt.executeQuery(sql);
+			rs.next();
+			resultArray = new Object[rs.getInt("totalRows")][10];
+
+			sql = "SELECT* FROM trip;";
+
+			System.out.println(sql);
+
+			rs = stmt.executeQuery(sql);
+			int columnIndex = 0;
+			while (rs.next()) {
+
+				String[] rr = { rs.getString("route"), rs.getString("departure"), rs.getString("arrival"),
+						rs.getString("price"), rs.getString("seats_left"), rs.getString("driver_person_nr"),
+						rs.getString("trip_id") };
+
+				resultArray[columnIndex] = rr;
+				columnIndex++;
+			}
+
+			rs.close();
+			stmt.close();
+			myConn.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			
+		} finally {
+			try {
+				myConn.close();
+				System.out.println("con close");
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			try {
+				stmt.close();
+				System.out.println("close");
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+
+		return resultArray;
 	}
 
 	public Object[][] getTrips(String startPoint, String destination) {
@@ -24,17 +81,17 @@ public class GetQueries {
 			stmt = myConn.createStatement();
 
 			String sql;
-			 sql = "SELECT count(*) AS totalRows from trip where route =(select route_id from route where starting_point = (SELECT city from city WHERE city_name =	 '" + startPoint + "') AND destination = (SELECT city from city WHERE city_name = '" + destination + "'));";
-
-			System.out.println(sql);
+			sql = "SELECT count(*) AS totalRows from trip where route =(select route_id from route where starting_point = (SELECT city from city WHERE city_name =	 '"
+					+ startPoint + "') AND destination = (SELECT city from city WHERE city_name = '" + destination
+					+ "'));";
 
 			ResultSet rs = stmt.executeQuery(sql);
 			rs.next();
 			resultArray = new Object[rs.getInt("totalRows")][10];
-			
 
-			 sql = "SELECT* from trip where route =(select route_id from route where starting_point = (SELECT city from city WHERE city_name =	 '" + startPoint + "') AND destination = (SELECT city from city WHERE city_name = '" + destination + "'));";
-
+			sql = "SELECT* from trip where route =(select route_id from route where starting_point = (SELECT city from city WHERE city_name =	 '"
+					+ startPoint + "') AND destination = (SELECT city from city WHERE city_name = '" + destination
+					+ "'));";
 
 			System.out.println(sql);
 
@@ -82,7 +139,6 @@ public class GetQueries {
 
 			String sql;
 			sql = String.format("SELECT count(*) AS totalRows FROM DRIVER;").toString();
-			System.out.println(sql);
 
 			ResultSet rs = stmt.executeQuery(sql);
 			rs.next();
@@ -106,19 +162,16 @@ public class GetQueries {
 			stmt.close();
 			myConn.close();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
 			try {
 				myConn.close();
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			try {
 				stmt.close();
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -187,7 +240,6 @@ public class GetQueries {
 
 			String sql;
 			sql = "SELECT count(*) AS totalRows FROM get_bookings(" + traveler_Id + ");";
-			System.out.println(sql);
 
 			ResultSet rs = stmt.executeQuery(sql);
 			rs.next();

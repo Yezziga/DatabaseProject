@@ -8,13 +8,15 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import javax.swing.JOptionPane;
+
 public class InsertQueries {
 
 	public InsertQueries() {
 	}
 
 
-	public int bookTrip(int seats, int tripId, int travId) {
+	public int bookTrip(int seats, int tripId, int travId) throws Exception {
 		int bookingId = -1;
 		String call = "{call book_trip(?, ?, ?)}";
 
@@ -37,8 +39,8 @@ public class InsertQueries {
 			myConn.close();
 
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw e;
+			
 		} finally {
 			try {
 				myConn.close();
@@ -136,7 +138,7 @@ public class InsertQueries {
 		}
 	}
 
-	public void addDriverToTrip(String driverId, int tripId) {
+	public void addDriverToTrip(String driverId, String tripId) {
 
 		Connection myConn = JDBC.getConnection();
 		Statement stmt = null;

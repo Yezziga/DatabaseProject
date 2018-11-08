@@ -16,15 +16,15 @@ public class MyBookingsPnl extends JPanel {
 	private JLabel lblTravelerID = new JLabel("Traveler-ID: "); // NORTH
 	private JTextField tfTravelerID = new JTextField();
 	private JButton bnOK = new JButton("OK");
-	private JButton bnRefresh = new JButton("Refresh");
+	private JButton bnClear = new JButton("Clear");
 	private JButton bnGoBack = new JButton("Go back");
 	private Controller c;
-	private MyTable t;
+	private Table t;
 
 	public MyBookingsPnl(Controller c) {
 		this.c = c;
 		setLayout(new BorderLayout());
-		t = new MyTable();
+		t = new Table();
 		table = new JTable(t);
 		table.setPreferredScrollableViewportSize(new Dimension(500, 70));
 		table.setFillsViewportHeight(true);
@@ -40,7 +40,7 @@ public class MyBookingsPnl extends JPanel {
 		pnlSouth.add(tfTravelerID);
 		pnlSouth.add(bnOK);
 		pnlSouth.add(bnGoBack);
-		pnlSouth.add(bnRefresh);
+		pnlSouth.add(bnClear);
 		add(lblMyBookings, BorderLayout.NORTH);
 		add(scrollPane, BorderLayout.CENTER);
 		add(pnlSouth, BorderLayout.SOUTH);
@@ -49,7 +49,7 @@ public class MyBookingsPnl extends JPanel {
 		listener.addListeners();
 	}
 
-	public MyTable getTable() {
+	public Table getTable() {
 		return t;
 	}
 
@@ -58,7 +58,7 @@ public class MyBookingsPnl extends JPanel {
 		public void addListeners() {
 			bnOK.addActionListener(this);
 			bnGoBack.addActionListener(this);
-			bnRefresh.addActionListener(this);
+			bnClear.addActionListener(this);
 
 		}
 
@@ -74,7 +74,7 @@ public class MyBookingsPnl extends JPanel {
 			if (e.getSource() == bnGoBack) {
 				c.changePanel(3);
 			}
-			if(e.getSource() ==bnRefresh) {
+			if(e.getSource() ==bnClear) {
 				t.refresh();
 			}
 		}

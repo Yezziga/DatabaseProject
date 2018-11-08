@@ -7,18 +7,18 @@ import javax.swing.table.TableModel;
 
 import backend.Queries;
 
-public class MyTable extends AbstractTableModel implements TableModelListener {
+public class Table extends AbstractTableModel implements TableModelListener {
 
 	private String[] columnNames;
 	private Object[][] data;
 	private boolean DEBUG = true;
 
-	public MyTable() {
+	public Table() {
 		this.columnNames = getColumns();
 		this.data = getData();
 	}
 
-	public MyTable(String[] columnNames, Object[][] data) {
+	public Table(String[] columnNames, Object[][] data) {
 		this.columnNames = columnNames;
 		this.data = data;
 	}

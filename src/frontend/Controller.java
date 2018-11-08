@@ -4,6 +4,7 @@ import backend.Queries;
 import frontend.BookingPnl;
 
 import java.awt.Dimension;
+import java.sql.SQLException;
 
 import javax.swing.*;
 
@@ -54,24 +55,43 @@ public class Controller {
 
 	public void checkIfBookable(int seats, int tripId, int travId) {
 		int bookingid;
-		bookingid = new Queries().insertQueries.bookTrip(seats, tripId, travId);
-		System.out.println("check if possible " + bookingid);
+		try {
+			bookingid = new Queries().insertQueries.bookTrip(seats, tripId, travId);
+			System.out.println("check if possible " + bookingid);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
 	}
 
+	/* 
+	 * not used
+	 */
 	public void getDriver() {
-		Object[][] myData = new Queries().getQueries.getDriver("2019"); // 1 driver
+		Object[][] myData = new Queries().getQueries.getDriver("2019");
 		String[] column = { "Person_nr", "name", "address", "phone_nr" };
 		bookingPnl.getTable().setColumn(column);
 		bookingPnl.getTable().setData(myData);
 		window.swapPanel(bookingPnl);
 	}
 
-	public void addDriverToTrip() {
-		new Queries().insertQueries.addDriverToTrip("2", 4);
+	public void addDriverToTrip(String driverId, String tripId) {
+		new Queries().insertQueries.addDriverToTrip(driverId, tripId);	
 	}
 
 	public void getTrips(String startPoint, String destination) {
+		try {
 		Object[][] myData = new Queries().getQueries.getTrips(startPoint, destination);
+		String[] column = {"route", "departure", "arrival", "price", "seats_left", "driver_person_nr", "trip_id"};
+		bookingPnl.getTable().setColumn(column);
+		bookingPnl.getTable().setData(myData);
+		window.swapPanel(bookingPnl);
+		} catch (Exception e){
+			System.out.println(e.getMessage());
+		}
+	}
+	
+	public void getAllTrips() {
+		Object[][] myData = new Queries().getQueries.getAllTrips();
 		String[] column = {"route", "departure", "arrival", "price", "seats_left", "driver_person_nr", "trip_id"};
 		bookingPnl.getTable().setColumn(column);
 		bookingPnl.getTable().setData(myData);

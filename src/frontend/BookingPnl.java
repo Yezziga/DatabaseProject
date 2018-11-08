@@ -15,24 +15,21 @@ public class BookingPnl extends JPanel implements ActionListener {
 	private JTable table;
 	private JLabel lblTitle;
 	private JTextField tfleft, tfRight;
-	private JButton bnSearch, bnBook, bnMyBookings, bnRegister, bnRefresh;
+	private JButton bnSearch, bnBook, bnMyBookings, bnRegister, bnClear;
 	private Controller c;
-	private MyTable t;
+	private Table t;
 
 	public BookingPnl(Controller c) {
 		super(new BorderLayout());
 		this.c = c;
-		t = new MyTable();
+		t = new Table();
 
 		table = new JTable(t);
 		table.setPreferredScrollableViewportSize(new Dimension(500, 70));
 		table.setFillsViewportHeight(true);
-
 		table.getModel().addTableModelListener(t);
-		// Create the scroll pane and add the table to it.
-		JScrollPane scrollPane = new JScrollPane(table);
 
-		// Add the scroll pane to this panel.
+		JScrollPane scrollPane = new JScrollPane(table);
 		JPanel pnlSouth = new JPanel();
 
 		lblTitle = new JLabel("BOOKING");
@@ -45,7 +42,7 @@ public class BookingPnl extends JPanel implements ActionListener {
 		bnBook = new JButton("Book");
 		bnMyBookings = new JButton("My bookings");
 		bnRegister = new JButton("Register");
-		bnRefresh = new JButton("Refresh");
+		bnClear = new JButton("Clear");
 		pnlSouth = new JPanel();
 		pnlSouth.add(bnSearch);
 		pnlSouth.add(tfleft);
@@ -53,7 +50,7 @@ public class BookingPnl extends JPanel implements ActionListener {
 		pnlSouth.add(bnBook);
 		pnlSouth.add(bnMyBookings);
 		pnlSouth.add(bnRegister);
-		pnlSouth.add(bnRefresh);
+		pnlSouth.add(bnClear);
 
 		add(lblTitle, BorderLayout.NORTH);
 		add(scrollPane, BorderLayout.CENTER);
@@ -63,11 +60,12 @@ public class BookingPnl extends JPanel implements ActionListener {
 		bnRegister.addActionListener(this);
 		bnMyBookings.addActionListener(this);
 		bnBook.addActionListener(this);
-		bnRefresh.addActionListener(this);
+		bnClear.addActionListener(this);
 
 	}
+	
 
-	public MyTable getTable() {
+	public Table getTable() {
 		return t;
 	}
 
@@ -90,22 +88,33 @@ public class BookingPnl extends JPanel implements ActionListener {
 			c.changePanel(2);
 		}
 		if (event.getSource() == bnBook) {
-			int seats, travId, tripId;
-			travId = Integer.parseInt(JOptionPane.showInputDialog("What is your traveler-ID?"));
-			seats = Integer.parseInt(JOptionPane.showInputDialog("How many seats would you like to book?"));
-			tripId = Integer.parseInt(table.getValueAt(table.getSelectedRow(), 6).toString());
-			
-			c.checkIfBookable(seats, tripId, travId);
+			if (table.getSelectionModel().isSelectionEmpty()) {
+				JOptionPane.showMessageDialog(null, "Select a row to book");
+			} else {
+
+				int seats, travId, tripId;
+				travId = Integer.parseInt(JOptionPane.showInputDialog("What is your traveler-ID?"));
+				seats = Integer.parseInt(JOptionPane.showInputDialog("How many seats would you like to book?"));
+				tripId = Integer.parseInt(table.getValueAt(table.getSelectedRow(), 6).toString());
+
+				c.checkIfBookable(seats, tripId, travId);
+			}
 		}
-		if(event.getSource() == bnRefresh) {
+		if (event.getSource() == bnClear) {
 			t.refresh();
 		}
-		if(event.getSource()== bnSearch) {
-			
-				c.getTrips(getLeftIn(), getRightIn() );
-			
-		}
+		if (event.getSource() == bnSearch) {
 
+			if (getLeftIn().isEmpty() && getRightIn().isEmpty()) {
+				c.getAllTrips();
+			} else if (getLeftIn().startsWith("add ")) {
+				String driverId = getLeftIn().substring(4);
+				c.addDriverToTrip(driverId, getRightIn());
+			} else {
+				c.getTrips(getLeftIn(), getRightIn());
+
+			}
+		}
 	}
 
 }
