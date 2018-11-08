@@ -1,7 +1,7 @@
 package frontend;
 
 import backend.Queries;
-import frontend.SimpleTableWindow;
+import frontend.BookingPnl;
 
 import java.awt.Dimension;
 
@@ -11,12 +11,12 @@ public class Controller {
 	private RegisterPnl registerPnl;
 	private MyBookingsPnl myBookings;
 	private StartWindow window;
-	private SimpleTableWindow table;
+	private BookingPnl bookingPnl;
 
 	public Controller() {
 		registerPnl = new RegisterPnl(this);
 		myBookings = new MyBookingsPnl(this);
-		table = new SimpleTableWindow(this);
+		bookingPnl = new BookingPnl(this);
 	}
 
 	public void changePanel(int i) {
@@ -28,7 +28,7 @@ public class Controller {
 			pnl = myBookings;			
 		}
 		if (i == 3) {
-			pnl = table;
+			pnl = bookingPnl;
 		}
 		window.swapPanel(pnl);
 	}
@@ -46,16 +46,26 @@ public class Controller {
 		}
 	}
 
-	public MyTable getMyBookings(int trav_id) {
+	public void getMyBookings(int trav_id) {
 		Object[][] bookings = new Queries().getQueries.getMyBooking(trav_id);
 		String[] columns = { "Booking nr", "Route", "Departure", "Arrival", "Total price", "Reserved seats" };
-		
-		return new MyTable(columns, bookings);		
+		myBookings.getTable().setColumn(columns);
+		myBookings.getTable().setData(bookings);
 	}
 	
 	public void checkSeats(int seats) {
 		// call query to calculate price
 		
+	}
+	
+	public void getDriver() {
+		Object[][] myData = new Queries().getQueries.getDrivers(); // 1 driver
+		String[] column = { "Person_nr", "name", "address", "phone_nr" };
+		bookingPnl.getTable().setColumn(column);
+		bookingPnl.getTable().setData(myData);
+		window.pack();
+		window.revalidate();
+		window.repaint();
 	}
 
 	public static void main(String[] args) {

@@ -14,25 +14,35 @@ public class MyTable extends AbstractTableModel {
 		this.columnNames = getColumns();
 		this.data = getData();
 	}
-	
+
 	public MyTable(String[] columnNames, Object[][] data) {
 		this.columnNames = columnNames;
 		this.data = data;
 	}
+	
+	public void setData(Object[][] o) {
+		this.data = o;
+	}
+	
+	public void setColumn(String[] s) {
+		this.columnNames = s;
+	}
 
 	public Object[][] getData() {
 
-		Object[][] myData = new Queries().getQueries.getDrivers();
+		// Object[][] myData = new Queries().getQueries.getDrivers();
+		Object[][] myData = new String[][] {};
 
 		return myData;
 	}
 
 	public String[] getColumns() {
 
-		String[] myData = { "Person_nr", "name", "address", "phone_nr" };
+		// String[] myData = { "Person_nr", "name", "address", "phone_nr" };
+		String[] myData = { " " };
 		return myData;
 	}
-	
+
 	public int getColumnCount() {
 		return columnNames.length;
 	}

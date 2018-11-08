@@ -20,7 +20,7 @@ public class StartWindow extends JFrame {
 
 	public StartWindow(Controller c) {
 
-		SimpleTableWindow newContentPane = new SimpleTableWindow(c);
+		BookingPnl newContentPane = new BookingPnl(c);
 		newContentPane.setOpaque(true); // content panes must be opaque
 		setContentPane(newContentPane);
 		this.setLocation(500, 200);
@@ -37,6 +37,7 @@ public class StartWindow extends JFrame {
 		revalidate();
 		repaint();
 	}
+	
 
 
 }
