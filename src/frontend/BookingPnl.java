@@ -11,7 +11,7 @@ import java.awt.event.ActionListener;
 
 
 // rename bookingPnl
-public class BookingPnl extends JPanel implements TableModelListener, ActionListener {
+public class BookingPnl extends JPanel implements ActionListener {
 
 	private JTable table;
 	private JLabel lblTitle;
@@ -29,7 +29,7 @@ public class BookingPnl extends JPanel implements TableModelListener, ActionList
 		table.setPreferredScrollableViewportSize(new Dimension(500, 70));
 		table.setFillsViewportHeight(true);
 
-		table.getModel().addTableModelListener(this);
+		table.getModel().addTableModelListener(t);
 		// Create the scroll pane and add the table to it.
 		JScrollPane scrollPane = new JScrollPane(table);
 
@@ -63,14 +63,6 @@ public class BookingPnl extends JPanel implements TableModelListener, ActionList
 		return t;
 	}
 
-	@Override
-	public void tableChanged(TableModelEvent e) {
-		int row = e.getFirstRow();
-		int column = e.getColumn();
-		TableModel model = (TableModel) e.getSource();
-		String columnName = model.getColumnName(column);
-		Object data = model.getValueAt(row, column);
-	}
 
 	public String getInput() {
 		return tfInput.getText();

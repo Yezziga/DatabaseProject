@@ -1,14 +1,17 @@
 package frontend;
 
+import javax.swing.event.TableModelEvent;
+import javax.swing.event.TableModelListener;
 import javax.swing.table.AbstractTableModel;
+import javax.swing.table.TableModel;
 
 import backend.Queries;
 
-public class MyTable extends AbstractTableModel {
+public class MyTable extends AbstractTableModel implements TableModelListener{
 
 	private String[] columnNames;
 	private Object[][] data;
-	private boolean DEBUG = false;
+	private boolean DEBUG = true;
 
 	public MyTable() {
 		this.columnNames = getColumns();
@@ -30,16 +33,17 @@ public class MyTable extends AbstractTableModel {
 
 	public Object[][] getData() {
 
-		// Object[][] myData = new Queries().getQueries.getDrivers();
+//		 Object[][] myData = new Queries().getQueries.getDrivers();
 		Object[][] myData = new String[][] {};
+		 System.out.println(myData.toString());
 
 		return myData;
 	}
 
 	public String[] getColumns() {
 
-		// String[] myData = { "Person_nr", "name", "address", "phone_nr" };
-		String[] myData = { " " };
+//		 String[] myData = { "något", "name", "address", "phone_nr" };
+		String[] myData = { " ", " " };
 		return myData;
 	}
 
@@ -111,5 +115,15 @@ public class MyTable extends AbstractTableModel {
 			System.out.println();
 		}
 		System.out.println("--------------------------");
+	}
+	
+	@Override
+	public void tableChanged(TableModelEvent e) {
+		int row = e.getFirstRow();
+		int column = e.getColumn();
+		TableModel model = (TableModel) e.getSource();
+		String columnName = model.getColumnName(column);
+		Object data = model.getValueAt(row, column);
+		setValueAt(data, row, column);
 	}
 }
