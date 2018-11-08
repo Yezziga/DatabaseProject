@@ -24,7 +24,7 @@ public class GetQueries {
 			stmt = myConn.createStatement();
 
 			String sql;
-			 sql = "SELECT count(*) AS totalRows from trip where route =(select route_id from route where starting_point = (SELECT city from city WHERE city_name =	 'Mörtfors') AND destination = (SELECT city from city WHERE city_name = 'Berlin'));";
+			 sql = "SELECT count(*) AS totalRows from trip where route =(select route_id from route where starting_point = (SELECT city from city WHERE city_name =	 '" + startPoint + "') AND destination = (SELECT city from city WHERE city_name = '" + destination + "'));";
 
 			System.out.println(sql);
 
@@ -32,11 +32,8 @@ public class GetQueries {
 			rs.next();
 			resultArray = new Object[rs.getInt("totalRows")][10];
 			
-//			sql = "select* from trip where route = (select route_id from route where starting_point = (SELECT city from city WHERE city_name = '"
-//					+ startPoint + "') AND destination = (SELECT city from city WHERE city_name = '" + destination
-//					+ "'));";
 
-			 sql = "SELECT* from trip where route =(select route_id from route where starting_point = (SELECT city from city WHERE city_name =	 'Mörtfors') AND destination = (SELECT city from city WHERE city_name = 'Berlin'));";
+			 sql = "SELECT* from trip where route =(select route_id from route where starting_point = (SELECT city from city WHERE city_name =	 '" + startPoint + "') AND destination = (SELECT city from city WHERE city_name = '" + destination + "'));";
 
 
 			System.out.println(sql);
