@@ -9,10 +9,10 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class InsertQueries {
-	
+
 	public InsertQueries() {
 	}
-	
+
 	public int registerTraveler(String name, String email, String address, String phone_nr) {
 
 		int traveler_id = -1;
@@ -27,12 +27,12 @@ public class InsertQueries {
 			stmt.setString(3, address);
 			stmt.setString(4, phone_nr);
 
-			ResultSet rs =stmt.executeQuery();
+			ResultSet rs = stmt.executeQuery();
 			rs.next();
-			
+
 			traveler_id = rs.getInt(1);
 			System.out.println(traveler_id);
-			
+
 			stmt.close();
 			myConn.close();
 
@@ -91,5 +91,40 @@ public class InsertQueries {
 			}
 		}
 	}
-		
+
+	public void addDriverToTrip(String driverId, int tripId) {
+
+		Connection myConn = JDBC.getConnection();
+		Statement stmt = null;
+
+		try {
+			stmt = myConn.createStatement();
+
+			String sql;
+			sql = "UPDATE trip SET driver_person_nr = '" + driverId + "' WHERE trip_id = '" + tripId + "';";
+//			sql = "UPDATE trip SET driver_person_nr = '2019' WHERE trip_id = '7';";
+
+			stmt.execute(sql);
+			
+			
+			System.out.println(sql);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			try {
+				myConn.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			try {
+				stmt.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
+
 }
