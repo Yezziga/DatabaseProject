@@ -1,124 +1,120 @@
 package frontend;
 
-import java.awt.*;
-
+import backend.Queries;
 import javax.swing.*;
+import javax.swing.table.AbstractTableModel;
+import java.awt.*;
+import javax.swing.event.*;
+import javax.swing.table.TableModel;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class BookingPnl extends JPanel {
-	private JPanel pnlRoutes = new JPanel();
-	private JPanel pnlTrips = new JPanel();
-	private JPanel pnlCenterFrom = new JPanel();
-	private JPanel pnlCenterTo = new JPanel();
+// rename bookingPnl
+public class BookingPnl extends JPanel implements ActionListener {
 
-	private JPanel pnlCenter = new JPanel();
-	private JPanel pnlSouth = new JPanel();
-	private JPanel pnlSouthLeft = new JPanel();
-	private JPanel pnlSouthRight = new JPanel();
-	private JLabel lblRoutes = new JLabel("Routes");
-	private JLabel lblTrips = new JLabel("Trips");
-	private JLabel lblBooking = new JLabel("Booking"); // NORTH
-	private JScrollPane spLeft = new JScrollPane();
-	private JScrollPane spRight = new JScrollPane();
+	private JTable table;
+	private JLabel lblTitle;
+	private JTextField tfleft, tfRight;
+	private JButton bnSearch, bnBook, bnMyBookings, bnRegister, bnClear;
+	private Controller c;
+	private Table t;
 
-	private JList<String> routesList = new JList<String>();
-	private JList tripList = new JList();
-	private JTextField tfSeats = new JTextField("Seats");
-	private JTextField tfID = new JTextField("Your traveler-ID");
-	private JButton bnBook = new JButton("Book");
-	private JButton bnCancel = new JButton("Cancel");
-	private JLabel lblFrom = new JLabel("From");
-	private JLabel lblTo = new JLabel("To");
-	private JTextField tfFrom = new JTextField();
-	private JTextField tfTo = new JTextField();
-	private JButton bnSearch = new JButton("Search");
+	public BookingPnl(Controller c) {
+		super(new BorderLayout());
+		this.c = c;
+		t = new Table();
 
-	private JLabel invis = new JLabel();
-	private JLabel invis1 = new JLabel();
+		table = new JTable(t);
+		table.setPreferredScrollableViewportSize(new Dimension(500, 70));
+		table.setFillsViewportHeight(true);
+		table.getModel().addTableModelListener(t);
 
-	public BookingPnl() {
-		setLayout(new BorderLayout());
-		pnlCenter.setLayout(new GridLayout(2, 2, 30, 10));
-		lblBooking.setPreferredSize(new Dimension(200, 20));
-		lblBooking.setHorizontalAlignment(JLabel.CENTER);
+		JScrollPane scrollPane = new JScrollPane(table);
+		JPanel pnlSouth = new JPanel();
 
-		// pnlRoutes.setBorder(BorderFactory.createLineBorder(Color.BLACK)); // testing
-		// purpose
-		// pnlTrips.setBorder(BorderFactory.createLineBorder(Color.GREEN));
-		// pnlSouth.setBorder(BorderFactory.createLineBorder(Color.YELLOW)); // testing
-		// purpose
+		lblTitle = new JLabel("BOOKING");
+		lblTitle.setHorizontalAlignment(JLabel.CENTER);
+		tfleft = new JTextField();
+		tfleft.setPreferredSize(new Dimension(150, 25));
+		tfRight = new JTextField();
+		tfRight.setPreferredSize(new Dimension(150, 25));
+		bnSearch = new JButton("Search");
+		bnBook = new JButton("Book");
+		bnMyBookings = new JButton("My bookings");
+		bnRegister = new JButton("Register");
+		bnClear = new JButton("Clear");
+		pnlSouth = new JPanel();
+		pnlSouth.add(bnSearch);
+		pnlSouth.add(tfleft);
+		pnlSouth.add(tfRight);
+		pnlSouth.add(bnBook);
+		pnlSouth.add(bnMyBookings);
+		pnlSouth.add(bnRegister);
+		pnlSouth.add(bnClear);
 
-		invis.setPreferredSize(new Dimension(350, 10));
-		// invis.setBorder(BorderFactory.createLineBorder(Color.MAGENTA));
-		invis1.setPreferredSize(new Dimension(350, 10));
-		// invis1.setBorder(BorderFactory.createLineBorder(Color.MAGENTA));
-
-		String[] data = { "CPH_BER", "BER_CPH", "STO_BER", "BER_CPH", "STO_BER", "BER_CPH", "STO_BER", "BER_CPH",
-				"STO_BER", "BER_CPH", "STO_BER", "BER_CPH", "STO_BER" }; // TESTI
-		routesList.setListData(data);
-
-		spLeft.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-		spLeft.setSize(200, 700); // not working
-		spLeft.setViewportView(routesList);
-
-		spRight.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-		spRight.setSize(200, 700);
-		spRight.setViewportView(tripList);
-
-		// pnlSouth.add(lblRoutes);
-		pnlRoutes.add(lblRoutes);
-		pnlRoutes.add(invis);
-		pnlTrips.add(lblTrips);
-		pnlTrips.add(invis1);
-		pnlRoutes.add(spLeft);
-		pnlTrips.add(spRight);
-		pnlCenter.add(pnlRoutes);
-		pnlCenter.add(pnlTrips);
-		pnlCenter.add(pnlCenterFrom);
-		pnlCenter.add(pnlCenterTo);
-
-		pnlSouth.setLayout(new GridLayout(1, 2, 30, 0));
-		pnlSouthLeft.add(new JLabel("testing"));
-		// pnlSouthRight.add(new JLabel("right panel"));
-
-		pnlSouthRight.setLayout(new GridLayout(2, 2, 30, 10));
-		pnlSouthRight.add(tfSeats);
-		pnlSouthRight.add(tfID);
-		pnlSouthRight.add(bnBook);
-		pnlSouthRight.add(bnCancel);
-		pnlSouth.add(pnlSouthLeft);
-		pnlSouth.add(pnlSouthRight);
-
-		tfFrom.setPreferredSize(new Dimension(120, 20));
-		tfTo.setPreferredSize(new Dimension(120, 20));
-
-		JLabel invis = new JLabel();
-		invis.setPreferredSize(new Dimension(300, 20));
-		pnlCenterFrom.add(lblFrom);
-		pnlCenterFrom.add(tfFrom);
-		pnlCenterTo.add(lblTo);
-		pnlCenterTo.add(tfTo);
-		pnlCenterTo.add(bnSearch);
-
-		add(lblBooking, BorderLayout.NORTH);
-		add(pnlCenter, BorderLayout.CENTER);
+		add(lblTitle, BorderLayout.NORTH);
+		add(scrollPane, BorderLayout.CENTER);
 		add(pnlSouth, BorderLayout.SOUTH);
 
+		bnSearch.addActionListener(this);
+		bnRegister.addActionListener(this);
+		bnMyBookings.addActionListener(this);
+		bnBook.addActionListener(this);
+		bnClear.addActionListener(this);
+
+	}
+	
+
+	public Table getTable() {
+		return t;
 	}
 
-	public String getTfSeats() {
-		return tfSeats.getText();
+	public String getLeftIn() {
+		return tfleft.getText();
 	}
 
-	public String getTfID() {
-		return tfID.getText();
+	public String getRightIn() {
+		return tfRight.getText();
 	}
 
-	public String getTfFrom() {
-		return tfFrom.getText();
-	}
+	@Override
+	public void actionPerformed(ActionEvent event) {
+		String command = event.getActionCommand();
 
-	public String getTfTo() {
-		return tfTo.getText();
+		if (event.getSource() == bnRegister) {
+			c.changePanel(1);
+		}
+		if (event.getSource() == bnMyBookings) {
+			c.changePanel(2);
+		}
+		if (event.getSource() == bnBook) {
+			if (table.getSelectionModel().isSelectionEmpty()) {
+				JOptionPane.showMessageDialog(null, "Select a row to book");
+			} else {
+
+				int seats, travId, tripId;
+				travId = Integer.parseInt(JOptionPane.showInputDialog("What is your traveler-ID?"));
+				seats = Integer.parseInt(JOptionPane.showInputDialog("How many seats would you like to book?"));
+				tripId = Integer.parseInt(table.getValueAt(table.getSelectedRow(), 6).toString());
+
+				c.checkIfBookable(seats, tripId, travId);
+			}
+		}
+		if (event.getSource() == bnClear) {
+			t.refresh();
+		}
+		if (event.getSource() == bnSearch) {
+
+			if (getLeftIn().isEmpty() && getRightIn().isEmpty()) {
+				c.getAllTrips();
+			} else if (getLeftIn().startsWith("add ")) {
+				String driverId = getLeftIn().substring(4);
+				c.addDriverToTrip(driverId, getRightIn());
+			} else {
+				c.getTrips(getLeftIn(), getRightIn());
+
+			}
+		}
 	}
 
 }
