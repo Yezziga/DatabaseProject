@@ -57,7 +57,7 @@ public class Controller {
 		int bookingid;
 		try {
 			bookingid = new Queries().insertQueries.bookTrip(seats, tripId, travId);
-			System.out.println("check if possible " + bookingid);
+			System.out.println("booking made - new booking-ID: " + bookingid);
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
