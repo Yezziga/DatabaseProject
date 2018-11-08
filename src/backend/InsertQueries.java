@@ -13,6 +13,50 @@ public class InsertQueries {
 	public InsertQueries() {
 	}
 
+
+	public int bookTrip(int seats, int tripId, int travId) {
+		int bookingId = -1;
+		String call = "{call book_trip(?, ?, ?)}";
+
+		Connection myConn = JDBC.getConnection();
+		CallableStatement stmt = null;
+		
+		try {
+			stmt = myConn.prepareCall(call);
+			stmt.setInt(1, seats);
+			stmt.setInt(2, tripId);
+			stmt.setInt(3, travId);
+
+			ResultSet rs = stmt.executeQuery();
+			rs.next();
+
+			bookingId = rs.getInt(1);
+			System.out.println(bookingId);
+
+			stmt.close();
+			myConn.close();
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			try {
+				myConn.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			try {
+				stmt.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		return bookingId;
+	}
+	
 	public int registerTraveler(String name, String email, String address, String phone_nr) {
 
 		int traveler_id = -1;

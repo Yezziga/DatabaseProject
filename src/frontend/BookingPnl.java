@@ -9,7 +9,6 @@ import javax.swing.table.TableModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-
 // rename bookingPnl
 public class BookingPnl extends JPanel implements ActionListener {
 
@@ -59,7 +58,7 @@ public class BookingPnl extends JPanel implements ActionListener {
 		add(lblTitle, BorderLayout.NORTH);
 		add(scrollPane, BorderLayout.CENTER);
 		add(pnlSouth, BorderLayout.SOUTH);
-		
+
 		bnSearch.addActionListener(this);
 		bnRegister.addActionListener(this);
 		bnMyBookings.addActionListener(this);
@@ -67,16 +66,15 @@ public class BookingPnl extends JPanel implements ActionListener {
 		bnRefresh.addActionListener(this);
 
 	}
-	
+
 	public MyTable getTable() {
 		return t;
 	}
 
-
 	public String getLeftIn() {
 		return tfleft.getText();
 	}
-	
+
 	public String getRightIn() {
 		return tfRight.getText();
 	}
@@ -92,18 +90,18 @@ public class BookingPnl extends JPanel implements ActionListener {
 			c.changePanel(2);
 		}
 		if (event.getSource() == bnBook) {
-//			int seats = Integer.parseInt(JOptionPane.showInputDialog("How many seats would you like to book?"));
-//			c.checkSeats(seats);
-			c.getDriver();
+			int seats, travId, tripId;
+			travId = Integer.parseInt(JOptionPane.showInputDialog("What is your traveler-ID?"));
+			seats = Integer.parseInt(JOptionPane.showInputDialog("How many seats would you like to book?"));
+			tripId = Integer.parseInt(table.getValueAt(table.getSelectedRow(), 6).toString());
+			
+			c.checkIfBookable(seats, tripId, travId);
 		}
 		if(event.getSource() == bnRefresh) {
 			t.refresh();
 		}
 		if(event.getSource()== bnSearch) {
-				if(getLeftIn().equals("")) {
-					
-				}
-//				c.addDriverToTrip();
+			
 				c.getTrips(getLeftIn(), getRightIn() );
 			
 		}

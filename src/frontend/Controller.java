@@ -52,9 +52,10 @@ public class Controller {
 		myBookings.getTable().setData(bookings);
 	}
 
-	public void checkSeats(int seats) {
-		// call query to calculate price
-
+	public void checkIfBookable(int seats, int tripId, int travId) {
+		int bookingid;
+		bookingid = new Queries().insertQueries.bookTrip(seats, tripId, travId);
+		System.out.println("check if possible " + bookingid);
 	}
 
 	public void getDriver() {

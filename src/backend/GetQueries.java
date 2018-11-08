@@ -32,12 +32,12 @@ public class GetQueries {
 			rs.next();
 			resultArray = new Object[rs.getInt("totalRows")][10];
 			
-			sql = "select* from trip where route = (select route_id from route where starting_point = (SELECT city from city WHERE city_name = '"
-					+ startPoint + "') AND destination = (SELECT city from city WHERE city_name = '" + destination
-					+ "'));";
+//			sql = "select* from trip where route = (select route_id from route where starting_point = (SELECT city from city WHERE city_name = '"
+//					+ startPoint + "') AND destination = (SELECT city from city WHERE city_name = '" + destination
+//					+ "'));";
 
-//			sql = "select* from trip where route = \r\n"
-//					+ "(select route_id from route where starting_point = (SELECT city from city WHERE city_name = 'Mörtfors') AND destination = (SELECT city from city WHERE city_name = 'Berlin'));";
+			 sql = "SELECT* from trip where route =(select route_id from route where starting_point = (SELECT city from city WHERE city_name =	 'Mörtfors') AND destination = (SELECT city from city WHERE city_name = 'Berlin'));";
+
 
 			System.out.println(sql);
 
@@ -57,19 +57,16 @@ public class GetQueries {
 			stmt.close();
 			myConn.close();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
 			try {
 				myConn.close();
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			try {
 				stmt.close();
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -207,9 +204,6 @@ public class GetQueries {
 			int columnIndex = 0;
 			while (rs.next()) {
 
-				// String[] rr = {rs.getString("booking_id"), rs.getString("trip_id"),
-				// rs.getString("traveler_id"), rs.getString("total_price"),
-				// rs.getString("reserved_seats")};
 				String[] rr = { rs.getString("booking_id"), rs.getString("route"), rs.getString("departure"),
 						rs.getString("arrival"), rs.getString("total_price"), rs.getString("reserved_seats") };
 
