@@ -115,9 +115,12 @@ public class RegisterPnl extends JPanel {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			if (e.getSource() == bnRegister) {
-				// empty fields not handled
-				int id = c.registerTraveler(getName(), getAddress(), getEmail(), getPhone());
-				JOptionPane.showMessageDialog(null, "You have been registered. Your traveler-ID is: " + id);
+				if (getName().isEmpty() || getAddress().isEmpty() || getEmail().isEmpty() || getPhone().isEmpty()) {
+					JOptionPane.showMessageDialog(null, "No field can be empty. Try again");
+				} else {
+					int id = c.registerTraveler(getName(), getAddress(), getEmail(), getPhone());
+					JOptionPane.showMessageDialog(null, "You have been registered. Your traveler-ID is: " + id);
+				}
 			}
 
 			if (e.getSource() == bnGoBack) {
