@@ -38,12 +38,13 @@ public class Controller {
 		window = new StartWindow(this);
 	}
 
-	public void registerTraveler(String name, String address, String email, String phone) {
+	public int registerTraveler(String name, String address, String email, String phone) {
 		int trav_id = new Queries().insertQueries.registerTraveler(name, email, address, phone);
 		if(trav_id == -1)
 		{
 			//throw new Exception();
 		}
+		return trav_id;
 	}
 
 	public void getMyBookings(int trav_id) {

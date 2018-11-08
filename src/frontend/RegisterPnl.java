@@ -15,7 +15,6 @@ public class RegisterPnl extends JPanel {
 	private JLabel lblAddress = new JLabel("Address");
 	private JLabel lblEmail = new JLabel("Email");
 	private JLabel lblPhone = new JLabel("Phone");
-	private JLabel lblStatus = new JLabel("status comes here");
 
 	private JLabel invis = new JLabel("REGISTER");
 	private JLabel invis1 = new JLabel();
@@ -31,7 +30,7 @@ public class RegisterPnl extends JPanel {
 	private JTextField tfPhone = new JTextField();
 
 	private JButton bnRegister = new JButton("Register");
-	private JButton bnCancel = new JButton("Cancel");
+	private JButton bnGoBack = new JButton("Go back");
 	private JPanel panel = new JPanel();
 	private Controller c;
 
@@ -76,9 +75,8 @@ public class RegisterPnl extends JPanel {
 		panel.add(invis5);
 
 		panel.add(bnRegister);
-		panel.add(bnCancel);
+		panel.add(bnGoBack);
 		panel.add(invis6);
-		panel.add(lblStatus);
 
 		Listener listener = new Listener();
 		listener.addListeners();
@@ -100,26 +98,23 @@ public class RegisterPnl extends JPanel {
 		return tfPhone.getText();
 	}
 
-	public void setLblStatus(String s) {
-		lblStatus.setText(s);
-	}
 
 	private class Listener implements ActionListener {
 
 		public void addListeners() {
 			bnRegister.addActionListener(this);
-			bnCancel.addActionListener(this);
+			bnGoBack.addActionListener(this);
 		}
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			if (e.getSource() == bnRegister) {
-
-				c.registerTraveler(getName(), getAddress(), getEmail(), getPhone()); // add new traveler to database
-				JOptionPane.showMessageDialog(null, "You have been registered. Your traveler-ID is: "); // give ID
+				
+				int id = c.registerTraveler(getName(), getAddress(), getEmail(), getPhone()); // add new traveler to database
+				JOptionPane.showMessageDialog(null, "You have been registered. Your traveler-ID is: " + id); // give ID
 			}
 
-			if (e.getSource() == bnCancel) {
+			if (e.getSource() == bnGoBack) {
 				c.changePanel(3);
 			}
 
