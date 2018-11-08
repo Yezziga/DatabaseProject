@@ -16,6 +16,7 @@ public class MyBookingsPnl extends JPanel {
 	private JLabel lblTravelerID = new JLabel("Traveler-ID: "); // NORTH
 	private JTextField tfTravelerID = new JTextField();
 	private JButton bnOK = new JButton("OK");
+	private JButton bnRefresh = new JButton("Refresh");
 	private JButton bnGoBack = new JButton("Go back");
 	private Controller c;
 	private MyTable t;
@@ -39,6 +40,7 @@ public class MyBookingsPnl extends JPanel {
 		pnlSouth.add(tfTravelerID);
 		pnlSouth.add(bnOK);
 		pnlSouth.add(bnGoBack);
+		pnlSouth.add(bnRefresh);
 		add(lblMyBookings, BorderLayout.NORTH);
 		add(scrollPane, BorderLayout.CENTER);
 		add(pnlSouth, BorderLayout.SOUTH);
@@ -56,11 +58,15 @@ public class MyBookingsPnl extends JPanel {
 		public void addListeners() {
 			bnOK.addActionListener(this);
 			bnGoBack.addActionListener(this);
+			bnRefresh.addActionListener(this);
+
 		}
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			if (e.getSource() == bnOK) {
+				int trav_id = Integer.parseInt(tfTravelerID.getText());
+				c.getMyBookings(trav_id);
 				// query traveler-ID's bookings
 
 			}
@@ -68,7 +74,9 @@ public class MyBookingsPnl extends JPanel {
 			if (e.getSource() == bnGoBack) {
 				c.changePanel(3);
 			}
-
+			if(e.getSource() ==bnRefresh) {
+				t.refresh();
+			}
 		}
 
 	}

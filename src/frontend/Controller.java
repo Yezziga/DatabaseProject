@@ -25,7 +25,7 @@ public class Controller {
 			pnl = registerPnl;
 		}
 		if (i == 2) {
-			pnl = myBookings;			
+			pnl = myBookings;
 		}
 		if (i == 3) {
 			pnl = bookingPnl;
@@ -33,16 +33,14 @@ public class Controller {
 		window.swapPanel(pnl);
 	}
 
-
 	public void start() {
 		window = new StartWindow(this);
 	}
 
 	public int registerTraveler(String name, String address, String email, String phone) {
 		int trav_id = new Queries().insertQueries.registerTraveler(name, email, address, phone);
-		if(trav_id == -1)
-		{
-			//throw new Exception();
+		if (trav_id == -1) {
+			// throw new Exception();
 		}
 		return trav_id;
 	}
@@ -53,24 +51,30 @@ public class Controller {
 		myBookings.getTable().setColumn(columns);
 		myBookings.getTable().setData(bookings);
 	}
-	
+
 	public void checkSeats(int seats) {
 		// call query to calculate price
-		
+
 	}
-	
+
 	public void getDriver() {
-		Object[][] myData = new Queries().getQueries.getDrivers(); // 1 driver
+		Object[][] myData = new Queries().getQueries.getDriver("2019"); // 1 driver
 		String[] column = { "Person_nr", "name", "address", "phone_nr" };
 		bookingPnl.getTable().setColumn(column);
 		bookingPnl.getTable().setData(myData);
 		window.swapPanel(bookingPnl);
-		
-//		Object[][] myData = new Queries().getQueries.getDriver("2019"); // 1 driver
-//		String[] column = { "Person_nr", "name", "address", "phone_nr" };
-//		bookingPnl.getTable().setColumn(column);
-//		bookingPnl.getTable().setData(myData);
-//		window.swapPanel(bookingPnl);
+	}
+
+	public void addDriverToTrip() {
+		new Queries().insertQueries.addDriverToTrip("2", 4);
+	}
+
+	public void getTrips(String startPoint, String destination) {
+		Object[][] myData = new Queries().getQueries.getTrips(startPoint, destination);
+		String[] column = {"route", "departure", "arrival", "price", "seats_left", "driver_person_nr", "trip_id"};
+		bookingPnl.getTable().setColumn(column);
+		bookingPnl.getTable().setData(myData);
+		window.swapPanel(bookingPnl);
 	}
 
 	public static void main(String[] args) {

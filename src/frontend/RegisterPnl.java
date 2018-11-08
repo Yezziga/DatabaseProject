@@ -10,6 +10,13 @@ import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
+/**
+ * Panel for registering a new traveler. The DB will insert a new traveler in
+ * Traveler table and return the ID. DONE
+ * 
+ * @author Jessica
+ *
+ */
 public class RegisterPnl extends JPanel {
 	private JLabel lblName = new JLabel("Name");
 	private JLabel lblAddress = new JLabel("Address");
@@ -37,8 +44,8 @@ public class RegisterPnl extends JPanel {
 	public RegisterPnl(Controller c) {
 		this.c = c;
 		setLayout(new BorderLayout());
-//		setOpaque(true);
-		
+		// setOpaque(true);
+
 		tfName.setPreferredSize(new Dimension(160, 20));
 		tfAddress.setPreferredSize(new Dimension(160, 20));
 		tfEmail.setPreferredSize(new Dimension(160, 20));
@@ -98,7 +105,6 @@ public class RegisterPnl extends JPanel {
 		return tfPhone.getText();
 	}
 
-
 	private class Listener implements ActionListener {
 
 		public void addListeners() {
@@ -109,9 +115,9 @@ public class RegisterPnl extends JPanel {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			if (e.getSource() == bnRegister) {
-				
-				int id = c.registerTraveler(getName(), getAddress(), getEmail(), getPhone()); // add new traveler to database
-				JOptionPane.showMessageDialog(null, "You have been registered. Your traveler-ID is: " + id); // give ID
+				// empty fields not handled
+				int id = c.registerTraveler(getName(), getAddress(), getEmail(), getPhone());
+				JOptionPane.showMessageDialog(null, "You have been registered. Your traveler-ID is: " + id);
 			}
 
 			if (e.getSource() == bnGoBack) {

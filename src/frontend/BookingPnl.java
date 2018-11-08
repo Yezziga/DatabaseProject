@@ -15,7 +15,7 @@ public class BookingPnl extends JPanel implements ActionListener {
 
 	private JTable table;
 	private JLabel lblTitle;
-	private JTextField tfInput;
+	private JTextField tfleft, tfRight;
 	private JButton bnSearch, bnBook, bnMyBookings, bnRegister, bnRefresh;
 	private Controller c;
 	private MyTable t;
@@ -38,8 +38,10 @@ public class BookingPnl extends JPanel implements ActionListener {
 
 		lblTitle = new JLabel("BOOKING");
 		lblTitle.setHorizontalAlignment(JLabel.CENTER);
-		tfInput = new JTextField();
-		tfInput.setPreferredSize(new Dimension(250, 25));
+		tfleft = new JTextField();
+		tfleft.setPreferredSize(new Dimension(150, 25));
+		tfRight = new JTextField();
+		tfRight.setPreferredSize(new Dimension(150, 25));
 		bnSearch = new JButton("Search");
 		bnBook = new JButton("Book");
 		bnMyBookings = new JButton("My bookings");
@@ -47,7 +49,8 @@ public class BookingPnl extends JPanel implements ActionListener {
 		bnRefresh = new JButton("Refresh");
 		pnlSouth = new JPanel();
 		pnlSouth.add(bnSearch);
-		pnlSouth.add(tfInput);
+		pnlSouth.add(tfleft);
+		pnlSouth.add(tfRight);
 		pnlSouth.add(bnBook);
 		pnlSouth.add(bnMyBookings);
 		pnlSouth.add(bnRegister);
@@ -70,8 +73,12 @@ public class BookingPnl extends JPanel implements ActionListener {
 	}
 
 
-	public String getInput() {
-		return tfInput.getText();
+	public String getLeftIn() {
+		return tfleft.getText();
+	}
+	
+	public String getRightIn() {
+		return tfRight.getText();
 	}
 
 	@Override
@@ -93,11 +100,12 @@ public class BookingPnl extends JPanel implements ActionListener {
 			t.refresh();
 		}
 		if(event.getSource()== bnSearch) {
-			if(getInput().isEmpty()) {
-				JOptionPane.showMessageDialog(null, "Please insert name of city");
-			} else {
-//				c.getDriver();
-			}
+				if(getLeftIn().equals("")) {
+					
+				}
+//				c.addDriverToTrip();
+				c.getTrips(getLeftIn(), getRightIn() );
+			
 		}
 
 	}
