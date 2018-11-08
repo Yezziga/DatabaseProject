@@ -66,11 +66,11 @@ public class GetQueries {
 		return resultArray;
 	}
 	
-	public  ArrayList<String[]> getDriver(String pnr) {
+	public  Object[][] getDriver(String pnr) {
 		Connection myConn = JDBC.getConnection();
 		Statement stmt = null;
 		
-		ArrayList<String[]> resultArray =  new ArrayList<String[]>();
+		Object[][] resultArray =  null;
 		try {
 			stmt = myConn.createStatement();
 			
@@ -79,11 +79,16 @@ public class GetQueries {
 			System.out.println(sql);
 			
 			ResultSet rs = stmt.executeQuery(sql);
+			rs.next();			
+			resultArray =  new Object[1][10];
+
 			
+			int columnIndex = 0;
 			while (rs.next()) {
 				
 				String[] rr = {rs.getString("person_nr") + " " + rs.getString("name")+ " " + rs.getString("address")+ " " + rs.getString("phone_nr")};
-				resultArray.add(rr);
+				resultArray[columnIndex] = rr;
+				columnIndex++;
 							
 			}
 			
