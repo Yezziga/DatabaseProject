@@ -16,7 +16,7 @@ public class BookingPnl extends JPanel implements ActionListener {
 	private JTable table;
 	private JLabel lblTitle;
 	private JTextField tfInput;
-	private JButton bnBook, bnMyBookings, bnRegister;
+	private JButton bnSearch, bnBook, bnMyBookings, bnRegister, bnRefresh;
 	private Controller c;
 	private MyTable t;
 
@@ -38,24 +38,30 @@ public class BookingPnl extends JPanel implements ActionListener {
 
 		lblTitle = new JLabel("BOOKING");
 		lblTitle.setHorizontalAlignment(JLabel.CENTER);
-		tfInput = new JTextField("Input goes here");
+		tfInput = new JTextField();
 		tfInput.setPreferredSize(new Dimension(250, 25));
+		bnSearch = new JButton("Search");
 		bnBook = new JButton("Book");
 		bnMyBookings = new JButton("My bookings");
 		bnRegister = new JButton("Register");
+		bnRefresh = new JButton("Refresh");
 		pnlSouth = new JPanel();
+		pnlSouth.add(bnSearch);
 		pnlSouth.add(tfInput);
 		pnlSouth.add(bnBook);
 		pnlSouth.add(bnMyBookings);
 		pnlSouth.add(bnRegister);
+		pnlSouth.add(bnRefresh);
 
 		add(lblTitle, BorderLayout.NORTH);
 		add(scrollPane, BorderLayout.CENTER);
 		add(pnlSouth, BorderLayout.SOUTH);
-
+		
+		bnSearch.addActionListener(this);
 		bnRegister.addActionListener(this);
 		bnMyBookings.addActionListener(this);
 		bnBook.addActionListener(this);
+		bnRefresh.addActionListener(this);
 
 	}
 	
@@ -82,6 +88,16 @@ public class BookingPnl extends JPanel implements ActionListener {
 //			int seats = Integer.parseInt(JOptionPane.showInputDialog("How many seats would you like to book?"));
 //			c.checkSeats(seats);
 			c.getDriver();
+		}
+		if(event.getSource() == bnRefresh) {
+			t.refresh();
+		}
+		if(event.getSource()== bnSearch) {
+			if(getInput().isEmpty()) {
+				JOptionPane.showMessageDialog(null, "Please insert name of city");
+			} else {
+//				c.getDriver();
+			}
 		}
 
 	}

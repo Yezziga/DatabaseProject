@@ -63,9 +63,13 @@ public class Controller {
 		String[] column = { "Person_nr", "name", "address", "phone_nr" };
 		bookingPnl.getTable().setColumn(column);
 		bookingPnl.getTable().setData(myData);
-		window.pack();
-		window.revalidate();
-		window.repaint();
+		window.swapPanel(bookingPnl);
+		
+//		Object[][] myData = new Queries().getQueries.getDriver("2019"); // 1 driver
+//		String[] column = { "Person_nr", "name", "address", "phone_nr" };
+//		bookingPnl.getTable().setColumn(column);
+//		bookingPnl.getTable().setData(myData);
+//		window.swapPanel(bookingPnl);
 	}
 
 	public static void main(String[] args) {
