@@ -8,9 +8,9 @@ public final class JDBC {
 		conn = getConnection();
 	}
 
-	final static String url = "jdbc:postgresql://pgserver.mah.se/ah7658project"; // change which database to connect to
-	final static String user = "ah7658";
-	final static String password = "aer0jpco";
+	final static String url = "jdbc:postgresql://pgserver.mah.se/"; // change which database to connect to
+	final static String user = ""; //
+	final static String password = ""; //
 	private static Connection conn = null;
 
 	public static Connection getConnection() {
